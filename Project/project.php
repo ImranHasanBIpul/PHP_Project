@@ -138,8 +138,8 @@ require "../controller/db_config.php";
 										<img class="img-responsive" width="80" height="80" src="<?php echo '../uploads/project_thumb.php/'.$project["image"];?>" alt="">
 									</td>
 									<td class="text-center">
-											<a href="projectUpdate.php?banner_id=<?php echo $project['id']; ?>"><i class="icon-pencil7"></i></a>
-											<a href="projectDelete.php?banner_id=<?php echo $project['id']; ?>"><i class="icon-trash"></i></a>
+											<a href="projectUpdate.php?project_id=<?php echo $project['id']; ?>"><i class="icon-pencil7"></i></a>
+											<a href="projectDelete.php?project_id=<?php echo $project['id']; ?>"><i class="icon-trash"></i></a>
 										</td>
 								</tr>
 								<?php }}?>

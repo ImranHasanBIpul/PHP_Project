@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <?php 
-	// die($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
-	if (basename(__DIR__) != 'project') {
+	if (basename(__DIR__) != 'admin') {
 		$baseUrl = '../';
 		$isInternal = true;
 	} else {
@@ -12,12 +10,14 @@
 	}
 
 include "../includes/head.php";
-require "../controller/db_config.php";
 ?>
+
+
 
 <body>
 
 <?php include "../includes/navber.php";?>
+
 
 	<!-- Page container -->
 	<div class="page-container">
@@ -72,8 +72,8 @@ require "../controller/db_config.php";
 
 					<div class="breadcrumb-line">
 						<ul class="breadcrumb">
-							<li><a href="services.php"> <i class="icon-home2 position-left"></i> Services</a></li>
-							<li class="active">List</li>
+							<li><a href="section.php"> <i class="icon-home2 position-left"></i> section</a></li>
+							<li class="active">Add</li>
 						</ul>
 
 					</div>
@@ -87,60 +87,62 @@ require "../controller/db_config.php";
 					<!-- Basic datatable -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">Services</h5>
+							<h5 class="panel-title">section Add</h5>
 							<div class="heading-elements">
 								<ul class="icons-list">
-								<li style="margin-right: 10px;" class=""><a href="servicesAdd.php" class="btn btn-primary text-light add-new">Add New</a></li>
+								<li style="margin-right: 10px;" class=""><a class="btn btn-primary text-light add-new">Add New</a></li>
 			                		<!-- <li><a data-action="collapse"></a></li>
 			                		<li><a data-action="reload"></a></li>
 			                		<li><a data-action="close"></a></li> -->
 			                	</ul>
 		                	</div>
 						</div>
-
+<hr>
 						<div class="panel-body">
-						<?php
+						<form class="form-horizontal" action="../controller/sectionController.php" method="post" enctype="multipart/form-data">
+								<fieldset class="content-group">
+
+								<?php
 								if (isset($_GET["msg"])) {
 								?>
-									<div class="alert alert-warning no-border">
+									<div class="alert alert-success no-border">
 											<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-											<span class="text-semibold">Successfull</span> <?php echo $_GET["msg"];?> 
+											<span class="text-semibold">Success</span> <?php echo $_GET["msg"];?> 
 										</div>
 										<?php } ?>
-						<table class="table table-bordered datatable-basic">
-							<thead>
-								<tr>
-									<th width="5%";>SL-</th>
-									<th width="20%";>Service Name</th>
-									<th width="25%";>Icon Name</th>
-									<th width="20%";>Service Details</th>
-									<th width="20%";>Image</th>
-									<th width="10%"; class="text-center">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-						  <?php 
-								$selectQry = "SELECT * FROM services WHERE active_status=1";
-								$service_list= mysqli_query($dbCon, $selectQry);
 
-								if (!empty($service_list)) {
-								foreach($service_list as $key => $service){
-								?>
-								<tr>
-									<td><?php echo ++$key;?></td>
-									<td><?php echo $service["service_name"];?></td>
-									<td><?php echo $service["icon_name"];?></td>
-									<td><?php echo $service["service_details"];?></td>
-									<td><?php echo $service["image"];?></td>
-									<td class="text-center">
-											<a href="servicesUpdate.php?service_id=<?php echo $service['id']; ?>"><i class="icon-pencil7"></i></a>
-											<a href="servicesDelete.php?service_id=<?php echo $service['id']; ?>"><i class="icon-trash"></i></a>
-										</td>
-								</tr>
-								<?php }} ?>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="title">Title</label>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="title" name="title">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="sub_title">Sub Title</label>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="sub_title" name="sub_title">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="details">Details</label>
+										<div class="col-lg-10">
+											<textarea rows="5" cols="5" class="form-control" id="detials" placeholder="Default textarea" id="detials" name="details"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="page_no">Page No</label>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="page_no" name="page_no">
+										</div>
+									</div>
+								</fieldset>
+								<div class="text-right">
+									<a href="section.php" class="btn btn-primary">Back To List</a>
 
-							</tbody>
-						</table>
+									<button type="submit" class="btn btn-primary" name="save_section">Submit <i class="icon-arrow-right14 position-right"></i></button>
+								</div>
+							</form>
+		
 						</div>
 
 						

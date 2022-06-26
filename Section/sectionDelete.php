@@ -1,8 +1,8 @@
 <?php
     require "../controller/db_config.php";
 
-       $project_id = $_GET['project_id'];
-       $updateQry = "UPDATE projects SET active_status =0 WHERE id='{$project_id}'"; 
+       $section_id = $_GET['section_id'];
+       $updateQry = "UPDATE sections SET active_status =0 WHERE id='{$section_id}'"; 
        
        $isSubmit = mysqli_query($dbCon, $updateQry);
 
@@ -12,4 +12,4 @@
         $message = "Delete Unsuccessful";
        }
 
-       header("location: ../Project/project.php? msg={$message}");
+       header("location: ../Section/section.php? msg={$message}");

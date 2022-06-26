@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <?php 
 	// die($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
-	if (basename(__DIR__) != 'project') {
+	if (basename(__DIR__) != 'admin') {
 		$baseUrl = '../';
 		$isInternal = true;
 	} else {
@@ -12,12 +11,12 @@
 	}
 
 include "../includes/head.php";
-require "../controller/db_config.php";
 ?>
 
 <body>
 
 <?php include "../includes/navber.php";?>
+
 
 	<!-- Page container -->
 	<div class="page-container">
@@ -72,14 +71,13 @@ require "../controller/db_config.php";
 
 					<div class="breadcrumb-line">
 						<ul class="breadcrumb">
-							<li><a href="services.php"> <i class="icon-home2 position-left"></i> Services</a></li>
-							<li class="active">List</li>
+							<li><a href="section.php"> <i class="icon-home2 position-left"></i> Section</a></li>
+							<li class="active">Update</li>
 						</ul>
 
 					</div>
 				</div>
 				<!-- /page header -->
-
 
 				<!-- Content area -->
 				<div class="content">
@@ -87,60 +85,77 @@ require "../controller/db_config.php";
 					<!-- Basic datatable -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">Services</h5>
+							<h5 class="panel-title">Section Update</h5>
 							<div class="heading-elements">
 								<ul class="icons-list">
-								<li style="margin-right: 10px;" class=""><a href="servicesAdd.php" class="btn btn-primary text-light add-new">Add New</a></li>
+								<li style="margin-right: 10px;" class=""><a class="btn btn-primary text-light add-new">Add New</a></li>
 			                		<!-- <li><a data-action="collapse"></a></li>
 			                		<li><a data-action="reload"></a></li>
 			                		<li><a data-action="close"></a></li> -->
 			                	</ul>
 		                	</div>
 						</div>
-
+<hr>
 						<div class="panel-body">
+
 						<?php
+						require "../controller/db_config.php";
+						$section_id = $_GET["section_id"];
+						$getSingleData = "SELECT * FROM sections WHERE id={$section_id}";
+						$getResult = mysqli_query($dbCon, $getSingleData);
+						?>
+
+						<form class="form-horizontal" action="../controller/sectionController.php" method="post">
+								<fieldset class="content-group">
+								<?php
 								if (isset($_GET["msg"])) {
 								?>
-									<div class="alert alert-warning no-border">
+									<div class="alert alert-success no-border">
 											<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-											<span class="text-semibold">Successfull</span> <?php echo $_GET["msg"];?> 
+											<span class="text-semibold">Success</span> <?php echo $_GET["msg"];?> 
 										</div>
 										<?php } ?>
-						<table class="table table-bordered datatable-basic">
-							<thead>
-								<tr>
-									<th width="5%";>SL-</th>
-									<th width="20%";>Service Name</th>
-									<th width="25%";>Icon Name</th>
-									<th width="20%";>Service Details</th>
-									<th width="20%";>Image</th>
-									<th width="10%"; class="text-center">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-						  <?php 
-								$selectQry = "SELECT * FROM services WHERE active_status=1";
-								$service_list= mysqli_query($dbCon, $selectQry);
 
-								if (!empty($service_list)) {
-								foreach($service_list as $key => $service){
-								?>
-								<tr>
-									<td><?php echo ++$key;?></td>
-									<td><?php echo $service["service_name"];?></td>
-									<td><?php echo $service["icon_name"];?></td>
-									<td><?php echo $service["service_details"];?></td>
-									<td><?php echo $service["image"];?></td>
-									<td class="text-center">
-											<a href="servicesUpdate.php?service_id=<?php echo $service['id']; ?>"><i class="icon-pencil7"></i></a>
-											<a href="servicesDelete.php?service_id=<?php echo $service['id']; ?>"><i class="icon-trash"></i></a>
-										</td>
-								</tr>
-								<?php }} ?>
+								<?php
+								if (!empty($getResult)) { foreach($getResult as $key => $section){
+								?>	
+								<input type="hidden" class="form-control" name="section_id" value = "<?php echo $section['id'];?>">	
 
-							</tbody>
-						</table>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="title">Title</label>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="title" name="title" required value = "<?php echo $section['title'];?>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="sub_title">Sub Title</label>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="sub_title" name="sub_title" required value = "<?php echo $section['sub_title'];?>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="details">Details</label>
+										<div class="col-lg-10">
+											<textarea rows="5" cols="5" class="form-control" id="detials" placeholder="Default textarea" id="detials" name="details" required>  <?php echo $section['details'];?> </textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-lg-2" for="page_no">Page No</label>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="page_no" name="page_no" required value = "<?php echo $section['page_no'];?>">
+										</div>
+									</div>
+								
+									<?php }} ?>
+								</fieldset>
+								<div class="text-right">
+									<a href="section.php" class="btn btn-primary">Back To List</a>
+
+									<button type="submit" class="btn btn-primary" name="update_section">Submit <i class="icon-arrow-right14 position-right"></i></button>
+								</div>
+							</form>
+		
+		
 						</div>
 
 						

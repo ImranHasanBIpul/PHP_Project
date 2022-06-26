@@ -3,7 +3,7 @@
 
 <?php 
 	// die($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
-	if (basename(__DIR__) != 'project') {
+	if (basename(__DIR__) != 'admin') {
 		$baseUrl = '../';
 		$isInternal = true;
 	} else {
@@ -72,7 +72,7 @@ require "../controller/db_config.php";
 
 					<div class="breadcrumb-line">
 						<ul class="breadcrumb">
-							<li><a href="services.php"> <i class="icon-home2 position-left"></i> Services</a></li>
+							<li><a href="section.php"> <i class="icon-home2 position-left"></i> section</a></li>
 							<li class="active">List</li>
 						</ul>
 
@@ -87,10 +87,10 @@ require "../controller/db_config.php";
 					<!-- Basic datatable -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">Services</h5>
+							<h5 class="panel-title">section</h5>
 							<div class="heading-elements">
 								<ul class="icons-list">
-								<li style="margin-right: 10px;" class=""><a href="servicesAdd.php" class="btn btn-primary text-light add-new">Add New</a></li>
+								<li style="margin-right: 10px;" class=""><a href="sectionAdd.php" class="btn btn-primary text-light add-new">Add New</a></li>
 			                		<!-- <li><a data-action="collapse"></a></li>
 			                		<li><a data-action="reload"></a></li>
 			                		<li><a data-action="close"></a></li> -->
@@ -111,33 +111,33 @@ require "../controller/db_config.php";
 							<thead>
 								<tr>
 									<th width="5%";>SL-</th>
-									<th width="20%";>Service Name</th>
-									<th width="25%";>Icon Name</th>
-									<th width="20%";>Service Details</th>
-									<th width="20%";>Image</th>
+									<th width="20%";>Title</th>
+									<th width="20%";>Sub Title</th>
+									<th width="25%";>Details</th>
+									<th width="20%";>Page no</th>
 									<th width="10%"; class="text-center">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
-						  <?php 
-								$selectQry = "SELECT * FROM services WHERE active_status=1";
-								$service_list= mysqli_query($dbCon, $selectQry);
 
-								if (!empty($service_list)) {
-								foreach($service_list as $key => $service){
+						  <?php 
+								$selectQry = "SELECT * FROM sections WHERE active_status=1";
+								$sectionList= mysqli_query($dbCon, $selectQry);
+					
+								foreach($sectionList as $key => $section){
 								?>
 								<tr>
 									<td><?php echo ++$key;?></td>
-									<td><?php echo $service["service_name"];?></td>
-									<td><?php echo $service["icon_name"];?></td>
-									<td><?php echo $service["service_details"];?></td>
-									<td><?php echo $service["image"];?></td>
+									<td><?php echo $section["title"];?></td>
+									<td><?php echo $section["sub_title"];?></td>
+									<td><?php echo $section["details"];?></td>
+									<td><?php echo $section["page_no"];?></td>
 									<td class="text-center">
-											<a href="servicesUpdate.php?service_id=<?php echo $service['id']; ?>"><i class="icon-pencil7"></i></a>
-											<a href="servicesDelete.php?service_id=<?php echo $service['id']; ?>"><i class="icon-trash"></i></a>
+											<a href="sectionUpdate.php?section_id=<?php echo $section['id']; ?>"><i class="icon-pencil7"></i></a>
+											<a href="sectionDelete.php?section_id=<?php echo $section['id']; ?>"><i class="icon-trash"></i></a>
 										</td>
 								</tr>
-								<?php }} ?>
+								<?php }?>
 
 							</tbody>
 						</table>

@@ -99,7 +99,7 @@ include "../includes/head.php";
 						</div>
 <hr>
 						<div class="panel-body">
-						<form class="form-horizontal" action="../controller/bannerController.php" method="post">
+						<form class="form-horizontal" action="../controller/serviceController.php" method="post">
 								<fieldset class="content-group">
 
 								<?php

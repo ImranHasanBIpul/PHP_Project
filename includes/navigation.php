@@ -17,7 +17,8 @@
 
 								<li class=<?php echo $manuName == 'services' ? "active" : ''; ?> ><a href="<?php echo $isInternal == true ? '../services/': 'services/';?>services.php"><i class="icon-image-compare"></i> <span>Services</span></a></li>
 
-								<li><a href="#"><i class="icon-home"></i> <span>Sections</span></a></li>
+								<li class=<?php echo $manuName == 'Section' ? "active" : ''; ?> ><a href="<?php echo $isInternal == true ? '../Section/': 'Section/';?>Section.php"><i class="icon-image-compare"></i> <span>Section</span></a></li>
+								
 								<li><a href="#"><i class="icon-home"></i> <span>Our Project</span></a></li>
 								<li><a href="#"><i class="icon-home"></i> <span>Our Staff</span></a></li>
 								<li><a href="#"><i class="icon-home"></i> <span>Our Clients</span></a></li>
