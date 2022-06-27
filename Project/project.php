@@ -135,7 +135,7 @@ require "../controller/db_config.php";
 									<td><?php echo $project["project_name"];?></td>
 									<td><?php echo $project["project_link"];?></td>
 									<td>
-										<img class="img-responsive" width="80" height="80" src="<?php echo '../uploads/project_thumb.php/'.$project["image"];?>" alt="">
+										<img class="img-responsive" width="80" height="80" src="<?php echo '../uploads/project_thumb.php/'.$project["project_thumb"];?>" alt="">
 									</td>
 									<td class="text-center">
 											<a href="projectUpdate.php?project_id=<?php echo $project['id']; ?>"><i class="icon-pencil7"></i></a>
@@ -143,8 +143,6 @@ require "../controller/db_config.php";
 										</td>
 								</tr>
 								<?php }}?>
-
-
 
 							</tbody>
 						</table>
